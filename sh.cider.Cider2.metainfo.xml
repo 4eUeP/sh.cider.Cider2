@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <content_rating type="oars-1.0"/>
+  <id>sh.cider.Cider2</id>
+  
+  <name>Cider</name>
+  <summary>An Apple Music client</summary>
+  
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Proprietary</project_license>
+  <developer_name>Cider Collective</developer_name>
+
+  <url type="homepage">https://cider.sh</url>
+  <url type="bugtracker">https://github.com/ciderapp/Cider-2</url>
+  
+  <description>
+    <p>
+      Cider is a new cross-platform Apple Music experience built on Vue.js and written from the ground up with performance in mind.
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">cider.desktop</launchable>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://cider.sh/cider.png</image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="v2.3.0" date="2024-02-02"/>
+  </releases>
+</component>

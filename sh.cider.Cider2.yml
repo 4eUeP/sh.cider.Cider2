@@ -1,22 +1,25 @@
-app-id: sh.cider.Cider
+id: sh.cider.Cider2
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: "23.08"
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '22.08'
+base-version: "23.08"
 command: cider-wrapper
 rename-desktop-file: cider.desktop
 rename-icon: cider
 finish-args:
-  - --device=dri
-  - --filesystem=xdg-run/app/com.discordapp.Discord:create
-  - --own-name=org.mpris.MediaPlayer2.cider
   - --share=ipc
-  - --share=network
-  - --socket=pulseaudio
   - --socket=x11
   #- --socket=wayland
   #- --socket=fallback-x11
+  - --device=dri
+  - --share=network
+  - --socket=pulseaudio
+  # FIXME: https://github.com/flatpak/flatpak/issues/5130
+  - --filesystem=xdg-run/pipewire-0:ro
+
+  - --filesystem=xdg-run/app/com.discordapp.Discord:create
+  - --own-name=org.mpris.MediaPlayer2.cider2
   - --system-talk-name=org.freedesktop.UPower
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.dbusmenu
@@ -43,20 +46,17 @@ modules:
         --exclude=./usr/share/doc \
         ./usr/share
       - install -Dm755 cider-wrapper /app/bin/cider-wrapper
-      - desktop-file-edit --set-key=Exec --set-value=cider-wrapper ${FLATPAK_DEST}/share/applications/cider.desktop
+      - |
+        desktop-file-edit --set-name=Cider2 \
+          --set-key=Exec --set-value=cider-wrapper \
+          ${FLATPAK_DEST}/share/applications/cider.desktop
       - install -Dm755 stub_sandbox ${FLATPAK_DEST}/cider/chrome-sandbox
       - install -Dm755 cider -t ${FLATPAK_DEST}/bin/
       - install -Dm644 -t /app/share/metainfo ${FLATPAK_ID}.metainfo.xml
     sources:
       - type: file
+        path: cider_2.3.0_amd64.deb
         dest-filename: cider.deb
-        url: https://github.com/ciderapp/Cider/releases/download/v1.6.2/cider_1.6.2_amd64.deb
-        sha256: a637119a14fb085215bdf9775bc26c916c931ad1755d0fdc50f6b1d6fbe48ad6
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/ciderapp/Cider/releases/latest
-          version-query: .tag_name
-          url-query: .assets[] | select(.name | match("(amd64.deb)")) | .browser_download_url
       - type: script
         dest-filename: cider
         commands:
@@ -72,4 +72,4 @@ modules:
       - type: file
         path: cider-wrapper
       - type: file
-        path: sh.cider.Cider.metainfo.xml
+        path: sh.cider.Cider2.metainfo.xml
