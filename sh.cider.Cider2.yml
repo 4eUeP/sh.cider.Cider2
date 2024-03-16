@@ -55,7 +55,7 @@ modules:
       - install -Dm644 -t /app/share/metainfo ${FLATPAK_ID}.metainfo.xml
     sources:
       - type: file
-        path: cider_2.3.1_amd64.deb
+        path: cider_2.3.2_amd64.deb
         dest-filename: cider.deb
       - type: script
         dest-filename: cider
